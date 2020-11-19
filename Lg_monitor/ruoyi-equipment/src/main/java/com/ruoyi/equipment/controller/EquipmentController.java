@@ -1,6 +1,7 @@
 package com.ruoyi.equipment.controller;
 
 import java.util.List;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,14 +23,13 @@ import com.ruoyi.common.core.page.TableDataInfo;
 
 /**
  * 设备Controller
- * 
+ *
  * @author TheBestBadGuy
  * @date 2020-11-19
  */
 @RestController
 @RequestMapping("/equipment/equipment")
-public class EquipmentController extends BaseController
-{
+public class EquipmentController extends BaseController {
     @Autowired
     private IEquipmentService equipmentService;
 
@@ -38,8 +38,7 @@ public class EquipmentController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('equipment:equipment:list')")
     @GetMapping("/list")
-    public TableDataInfo list(Equipment equipment)
-    {
+    public TableDataInfo list(Equipment equipment) {
         startPage();
         List<Equipment> list = equipmentService.selectEquipmentList(equipment);
         return getDataTable(list);
@@ -51,8 +50,7 @@ public class EquipmentController extends BaseController
     @PreAuthorize("@ss.hasPermi('equipment:equipment:export')")
     @Log(title = "设备", businessType = BusinessType.EXPORT)
     @GetMapping("/export")
-    public AjaxResult export(Equipment equipment)
-    {
+    public AjaxResult export(Equipment equipment) {
         List<Equipment> list = equipmentService.selectEquipmentList(equipment);
         ExcelUtil<Equipment> util = new ExcelUtil<Equipment>(Equipment.class);
         return util.exportExcel(list, "equipment");
@@ -63,8 +61,7 @@ public class EquipmentController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('equipment:equipment:query')")
     @GetMapping(value = "/{monitorId}")
-    public AjaxResult getInfo(@PathVariable("monitorId") Long monitorId)
-    {
+    public AjaxResult getInfo(@PathVariable("monitorId") Long monitorId) {
         return AjaxResult.success(equipmentService.selectEquipmentById(monitorId));
     }
 
@@ -74,8 +71,7 @@ public class EquipmentController extends BaseController
     @PreAuthorize("@ss.hasPermi('equipment:equipment:add')")
     @Log(title = "设备", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody Equipment equipment)
-    {
+    public AjaxResult add(@RequestBody Equipment equipment) {
         return toAjax(equipmentService.insertEquipment(equipment));
     }
 
@@ -85,8 +81,7 @@ public class EquipmentController extends BaseController
     @PreAuthorize("@ss.hasPermi('equipment:equipment:edit')")
     @Log(title = "设备", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody Equipment equipment)
-    {
+    public AjaxResult edit(@RequestBody Equipment equipment) {
         return toAjax(equipmentService.updateEquipment(equipment));
     }
 
@@ -95,9 +90,8 @@ public class EquipmentController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('equipment:equipment:remove')")
     @Log(title = "设备", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{monitorIds}")
-    public AjaxResult remove(@PathVariable Long[] monitorIds)
-    {
+    @DeleteMapping("/{monitorIds}")
+    public AjaxResult remove(@PathVariable Long[] monitorIds) {
         return toAjax(equipmentService.deleteEquipmentByIds(monitorIds));
     }
 }
