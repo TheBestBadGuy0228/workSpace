@@ -109,7 +109,7 @@ public class BufferTest {
         System.out.println(new String(bytes, 2, 2));
         System.out.println(buf.position());
         buf.reset();
-        System.out.println("-------------------reset-----------------------");
+        System.out.println("--------------------reset------------------------");
         System.out.println(buf.position());
         System.out.println("--------------------clear------------------------");
         buf.clear();
@@ -117,8 +117,10 @@ public class BufferTest {
         System.out.println(buf.limit());
         System.out.println(buf.capacity());
     }
+
     @Test
     public void test3() {
+
         //创建非直接缓冲区
         ByteBuffer allocate = ByteBuffer.allocate(1024);
         System.out.println(allocate.isDirect()); //false
